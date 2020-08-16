@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { getSituations } from 'actions'
+import { getSituations } from 'store/actions'
 
 import Flex from 'components/Flex'
 import Toast from 'components/Toast'
@@ -44,6 +44,10 @@ export default function Home () {
               </Link>
             </Absolute>
             {
+              situations.loading &&
+                <Icon name='loading' width='55' />
+            }
+            {
               situations.data.map(situation => (
                 <Situation key={situation.id} name={situation.name} description={situation.description} situation={situation} />
               ))
@@ -52,9 +56,9 @@ export default function Home () {
         </Flex>
         {
           toast &&
-            <Absolute bottom='0' left='calc(50% - 125px)'>
+            <div style={{ position: 'fixed', bottom: '0', left: 'calc(50% - 125px)' }}>
               <Toast text='Situação salva com sucesso' />
-            </Absolute>
+            </div>
         }
       </Flex>
     </>
